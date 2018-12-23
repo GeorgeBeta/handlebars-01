@@ -38,3 +38,21 @@ b) Creación de un fichero .gitignore  =>
 c) Con : git config --local[/global] --list  => averiguar user.name / user.email
     si no exisitera: git config --local user.name "GeorgeBeta"
                      git config --local user.email jorge@zaporta.com 
+d) Dar de alta el repositorio en GitHub
+e) Definición del repositorio "origin"
+    git remote add origin https://github.com/GeorgeBeta/handlebars-01.git
+f) Subir los cambios
+    git add .
+    git commit -m "Estructura Base 00"
+    ...
+    git push -u origin master
+<------------      # handlebars-01      ------------->
+
+HBS:   RENDERIZACIÓN DINÁMICA DE SITES WEB
+a) npm install hbs --save
+b) app.set('view engine', 'hbs');     (en server.js)
+
+HBS - Funcionamiento básico:
+a) En la carpeta '/public' renombrar los "ficheros.html" a "ficheros-old.html"
+b) Crear una carpera '/Views'
+c) Crear en /Views los mismos 'ficheros.html' 'ficheros.hbs' y volcar su contenido html -> hbs
