@@ -29,7 +29,6 @@ d) Editar 'pacckage.json' para añadir:
     app.use(express.static(__dirname + '/public'));
     OJO: El fichero server.js se debe de colocar en el raíz
 [ ... Editar varias .html en carpeta /public que se enlacen entre ellas ... ]
-
 GIT:
 a) git init    ==> Crea la estructura para GIT
 b) Creación de un fichero .gitignore  =>  
@@ -46,7 +45,7 @@ f) Subir los cambios
     git commit -m "Estructura Base 00"
     ...
     git push -u origin master
-<------------      # handlebars-01      ------------->
+<------------      # handlebars-01  -   Estructura Base 00    ------------->
 
 HBS:   RENDERIZACIÓN DINÁMICA DE SITES WEB
 a) npm install hbs --save
@@ -54,5 +53,38 @@ b) app.set('view engine', 'hbs');     (en server.js)
 
 HBS - Funcionamiento básico:
 a) En la carpeta '/public' renombrar los "ficheros.html" a "ficheros-old.html"
-b) Crear una carpera '/Views'
+b) Crear una carpera '/views'
 c) Crear en /Views los mismos 'ficheros.html' 'ficheros.hbs' y volcar su contenido html -> hbs
+NOTA: Una cosa que me dió mucha lata era tardar en averiguar que de esta manera los 
+    'includes' [css/js] debían de apuntar a los directorios de la carpeta 'public' donde
+    estuvieran, es decir:
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    ..............
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/popper.min.js"></script>
+d) los enlaces:
+    app.get('/', function(req, res) { res.render('home'); })
+    app.get('/about', function(req, res) {res.render('about'); })
+e) Se usan como variables DOS:
+    {{ nombre }} y {{ anio }}
+    y se introducen en la invocación:
+        app.get('/', function(req, res) {
+        res.render('home', { 
+            nombre: 'Jorge', 
+            anio: new Date().getFullYear() });
+        })
+<------------      # handlebars-01  -   HBS Funcionamiento Basico      ------------->
+
+HBS - Parciales (Partials):
+Bloques de código HTML que se puede re-utilizar en diferentes partes
+a) En server.js añadir: const hbs = require('hbs');
+b) En server.js añadir ante de : app.set('view engine', 'hbs');
+    hbs.registerPartials(__dirname + '/views/partials');
+c) En /views/partials se crean los siguientes ficheros con fragmentos:
+    head.hbs
+    navbar.hbs
+    footer.hbs
+d) Estos fragmentos se intercalan con el formato {{> fragmento }} donde fragmento.hbs 
+   está en partials
