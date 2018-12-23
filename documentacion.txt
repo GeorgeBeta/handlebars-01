@@ -1,0 +1,40 @@
+Primeros Pasos:
+========================
+NPM:
+npm init     ->> Crea el "package.json"
+
+EXPRESS:
+a) npm install express --save
+b) Crear /server/server.json
+c) Colocar el código inicial de express
+    const express = require('express')
+    const app = express()
+ 
+    app.get('/', function (req, res) {
+        res.send('Hola Mundo')
+    })
+ 
+    app.listen(3000, () => {
+        console.log('Escuchando el puerto :', 3000);
+    })
+d) Editar 'pacckage.json' para añadir:
+  "scripts": {
+    "start": "node server/server.js",
+    "nodemon": "nodemon server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }, 
+  ... [ REINICIO VS CODE para que funciones 'npm start' ]   ....
+
+"MIDDELWARE" VALIDADOR del directorio "PUBLIC":
+    app.use(express.static(__dirname + '/public'));
+    OJO: El fichero server.js se debe de colocar en el raíz
+[ ... Editar varias .html en carpeta /public que se enlacen entre ellas ... ]
+
+GIT:
+a) git init    ==> Crea la estructura para GIT
+b) Creación de un fichero .gitignore  =>  
+    package-lock.json
+    /node_modules/
+c) Con : git config --local[/global] --list  => averiguar user.name / user.email
+    si no exisitera: git config --local user.name "GeorgeBeta"
+                     git config --local user.email jorge@zaporta.com 
