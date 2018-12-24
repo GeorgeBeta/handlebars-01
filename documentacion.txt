@@ -88,3 +88,35 @@ c) En /views/partials se crean los siguientes ficheros con fragmentos:
     footer.hbs
 d) Estos fragmentos se intercalan con el formato {{> fragmento }} donde fragmento.hbs 
    está en partials
+<------------      # handlebars-01  -   HBS Partials y Variables      ------------->
+NOTA: En el uso de nodemon server, si se quiere nodemon esté pendiente de los cambios en otro tipo 
+de ficheros hay que invocarlos con el parámetro '-e':
+    nodemon server -e js,hbs,html,css
+
+HBS - Helpers:
+Son funciones que se disparan cuando el Template lo requiere
+a1) En server.js añadir el primer 'helper': 
+    hbs.registerHelper('getAnio', () => {
+        return new Date().getFullYear();
+    })
+a2) En el fichero .hbs sustituir: 'Anio' por 'getAnio'
+
+b1) En server.js añadir un segundo 'helper': 
+    hbs.registerHelper('CapitalizarTexto', (texto) => {
+        let palabras = texto.split(" ");
+        palabras.forEach((palabra, idx) => {
+            palabras[idx] = palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase();
+        });
+        return palabras.join(' ');
+    })
+b2) En el fichero .hbs sustituir: ...texto...  por '{{CapitalizarTexto 'xxxxxxx'}}
+
+Para reordenar los 'helpers' en un fichero aparte:
+a) Crear carpeta 'hbs' y dentro un fichero 'helpers.js'
+b) Situar todos los 'helpers' en ese fichero
+c) en 'helpers.js' añadir al principio:
+    const hbs = require('hbs');
+d) En 'server.js' poner detrás de 'const hbs = require('hbs');' :
+    require('./hbs/helpers');
+Nota: Son funciones que se ejecutan y se registran dentro del archivo 'helpers.js'
+luego no se necesitan exportar ni crear variables
